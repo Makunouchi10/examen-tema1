@@ -91,7 +91,7 @@ window.onload = function () {
         "#3B1C60"
     );
 
-    /* =====================================================
+/* =====================================================
         CARRETERA TRASERA (la que aparece detrás del auto)
     ===================================================== */
     ctx.beginPath();
@@ -222,16 +222,6 @@ window.onload = function () {
     ctx.closePath();
     ctx.fillStyle = "#222";
     ctx.fill();
-    
-    // 4. LÍNEAS DE ESTILO LATERAL (Tipo Ferrari)
-    ctx.strokeStyle = "rgba(0,0,0,0.2)";
-    ctx.lineWidth = 2;
-    for(let i=0; i<3; i++) {
-        ctx.beginPath();
-        ctx.moveTo(carX + 60, carY - 15 + (i*5));
-        ctx.lineTo(carX + 140, carY - 15 + (i*5));
-        ctx.stroke();
-    }
 
     // 5. FAROS DELANTEROS (Luces LED más definidas)
     ctx.shadowBlur = 8;
@@ -254,7 +244,7 @@ window.onload = function () {
     function drawOriginalWheel(x, y) {
         // Neumático
         ctx.beginPath();
-        ctx.arc(x, y, 32, 0, Math.PI * 2);
+        ctx.arc(x, y, 28, 0, Math.PI * 2);
         ctx.fillStyle = "#222";
         ctx.fill();
         outline();
