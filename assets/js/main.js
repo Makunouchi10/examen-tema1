@@ -181,73 +181,76 @@ window.onload = function () {
     ctx.stroke();
     ctx.setLineDash([]);
 
-   /* =====================================================
-        AUTO — Versión Proporcional y Fiel al Original
+/* =====================================================
+        AUTO — VERSIÓN DEPORTIVA (Estilo Ferrari)
        ===================================================== */
-    const carX = 180; // Posición base X
-    const carY = 415; // Posición base Y (ajustada a la carretera)
+    const carX = 180; 
+    const carY = 415; 
 
-    // 1. Sombra del auto (opcional para realismo, pero la imagen es flat)
+    // 1. SOMBRA (Para dar peso al coche)
+    ctx.beginPath();
+    ctx.ellipse(carX + 60, carY + 15, 140, 15, 0, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+    ctx.fill();
+
+    // 2. CUERPO CON DEGRADADO (Rojo Ferrari más vibrante)
+    const bodyGrad = ctx.createLinearGradient(0, carY - 55, 0, carY + 15);
+    bodyGrad.addColorStop(0, "#FF2800"); // Rojo Ferrari más brillante arriba
+    bodyGrad.addColorStop(1, "#C00000"); // Rojo oscuro abajo
+
+    ctx.beginPath();
+    ctx.moveTo(carX - 90, carY + 10);
+    ctx.lineTo(carX - 105, carY - 5);
+    ctx.lineTo(carX - 50, carY - 25);
+    ctx.lineTo(carX + 10, carY - 55);
+    ctx.lineTo(carX + 135, carY - 55);
+    ctx.lineTo(carX + 195, carY - 20);
+    ctx.lineTo(carX + 220, carY - 25); // Alerón
+    ctx.lineTo(carX + 220, carY + 15);
+    ctx.lineTo(carX - 90, carY + 15);
+    ctx.closePath();
+    ctx.fillStyle = bodyGrad;
+    ctx.fill();
+    outline();
+
+    // 3. VENTANILLA CON REFLEJO (más sutil)
+    ctx.beginPath();
+    ctx.moveTo(carX + 10, carY - 50);
+    ctx.lineTo(carX + 125, carY - 50);
+    ctx.lineTo(carX + 145, carY - 30);
+    ctx.lineTo(carX + 15, carY - 30);
+    ctx.closePath();
+    ctx.fillStyle = "#222";
+    ctx.fill();
     
-    // 2. Carrocería Principal (Color Rojo)
-    ctx.beginPath();
-    ctx.moveTo(carX - 90, carY + 10);  // Punta delantera inferior
-    ctx.lineTo(carX - 100, carY - 5);  // Punta delantera media
-    ctx.lineTo(carX - 50, carY - 25);  // Cofre (ángulo pronunciado)
-    ctx.lineTo(carX + 10, carY - 55);  // Parabrisas inicio
-    ctx.lineTo(carX + 130, carY - 55); // Techo plano
-    ctx.lineTo(carX + 190, carY - 20); // Caída trasera (pilar C)
-    ctx.lineTo(carX + 215, carY - 25); // Alerón punta superior
-    ctx.lineTo(carX + 215, carY + 15); // Trasera vertical
-    ctx.lineTo(carX - 90, carY + 15);  // Base
-    ctx.closePath();
-    ctx.fillStyle = "#E62828";
-    ctx.fill();
-    outline();
+    // 4. LÍNEAS DE ESTILO LATERAL (Tipo Ferrari)
+    ctx.strokeStyle = "rgba(0,0,0,0.2)";
+    ctx.lineWidth = 2;
+    for(let i=0; i<3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(carX + 60, carY - 15 + (i*5));
+        ctx.lineTo(carX + 140, carY - 15 + (i*5));
+        ctx.stroke();
+    }
 
-    // 3. Ventanilla (Negro/Gris Oscuro)
+    // 5. FAROS DELANTEROS (Luces LED más definidas)
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = "#FFD700";
+    ctx.fillStyle = "#FFE55C";
     ctx.beginPath();
-    ctx.moveTo(carX + 5, carY - 50);   // Inicio parabrisas
-    ctx.lineTo(carX + 120, carY - 50); // Techo
-    ctx.lineTo(carX + 140, carY - 30); // Ángulo trasero ventanilla
-    ctx.lineTo(carX + 10, carY - 30);  // Base ventanilla
-    ctx.closePath();
-    ctx.fillStyle = "#1A1A1A";
+    ctx.moveTo(carX - 98, carY - 2);
+    ctx.lineTo(carX - 65, carY - 15);
+    ctx.lineTo(carX - 60, carY - 5);
     ctx.fill();
-    outline();
+    ctx.shadowBlur = 0;
 
-    // 4. Detalle de Toma de Aire Lateral (El triángulo negro en la puerta)
-    ctx.beginPath();
-    ctx.moveTo(carX + 130, carY - 25);
-    ctx.lineTo(carX + 180, carY - 20);
-    ctx.lineTo(carX + 150, carY + 5);
-    ctx.closePath();
-    ctx.fillStyle = "#951919"; // Rojo más oscuro para profundidad
-    ctx.fill();
-    outline();
+    // 6. FARO TRASERO (Neón rojo)
+    ctx.fillStyle = "#FF3300";
+    ctx.fillRect(carX + 205, carY - 15, 10, 5);
+    ctx.strokeStyle = "#000";
+    ctx.strokeRect(carX + 205, carY - 15, 10, 5);
 
-    // 5. Faros delanteros (Triangulares amarillos/blancos)
-    ctx.beginPath();
-    ctx.moveTo(carX - 95, carY - 2);
-    ctx.lineTo(carX - 60, carY - 15);
-    ctx.lineTo(carX - 55, carY - 5);
-    ctx.closePath();
-    ctx.fillStyle = "#FEFFD2";
-    ctx.fill();
-    outline();
-
-    // 6. Espejo Retrovisor
-    ctx.beginPath();
-    ctx.moveTo(carX + 15, carY - 35);
-    ctx.lineTo(carX + 40, carY - 35);
-    ctx.lineTo(carX + 35, carY - 28);
-    ctx.lineTo(carX + 15, carY - 28);
-    ctx.closePath();
-    ctx.fillStyle = "#E62828";
-    ctx.fill();
-    outline();
-
-    // 7. Llantas (Estilo Original: Círculo negro con centro blanco)
+// 7. Llantas (Estilo Original: Círculo negro con centro blanco)
     function drawOriginalWheel(x, y) {
         // Neumático
         ctx.beginPath();
