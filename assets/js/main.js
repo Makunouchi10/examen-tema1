@@ -106,29 +106,49 @@ window.onload = function () {
     ctx.fill();
     outline();
 
-    /* =====================================================
-        PALMERAS DEL FONDO (sobre la carretera)
+  /* =====================================================
+        PALMERAS MEJORADAS (Estilo Flat Art)
     ===================================================== */
-    function palm(x, y) {
-        // Tronco
-        ctx.fillStyle = "#8B5A2B";
-        ctx.fillRect(x, y, 15, 50);
+    function palm(x, y, scale = 1) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(scale, scale);
+
+        // Tronco (Ligeramente más delgado y con color madera suave)
+        ctx.fillStyle = "#A1662F";
+        ctx.beginPath();
+        ctx.rect(-5, 0, 10, 40);
+        ctx.fill();
         outline();
 
-        // Hojas (5 elipses)
+        // Hojas (3 Círculos/Óvalos verdes superpuestos)
         ctx.fillStyle = "#2ECC71";
-        for (let a = 0; a < 5; a++) {
-            ctx.beginPath();
-            ctx.ellipse(x + 7, y - 10, 25, 10, a * (Math.PI / 4), 0, Math.PI * 2);
-            ctx.fill();
-            outline();
-        }
+        
+        // Hoja izquierda
+        ctx.beginPath();
+        ctx.ellipse(-15, -5, 18, 12, -Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+        outline();
+
+        // Hoja derecha
+        ctx.beginPath();
+        ctx.ellipse(15, -5, 18, 12, Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+        outline();
+
+        // Hoja central (arriba)
+        ctx.beginPath();
+        ctx.ellipse(0, -15, 18, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+        outline();
+
+        ctx.restore();
     }
 
-    palm(350, 260);
-    palm(400, 270);
-    palm(300, 275);
-
+    // Posicionamiento similar a la imagen (atrás a la derecha)
+    palm(320, 260, 0.7); // Palmera pequeña al fondo
+    palm(360, 265, 0.75); // Palmera mediana
+    palm(430, 290, 1.2);  // Palmera grande más cerca
     /* =====================================================
         MAR (exacto a la imagen)
     ===================================================== */
